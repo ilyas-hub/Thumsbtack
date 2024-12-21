@@ -2,11 +2,6 @@ import React, { useState, useEffect } from "react";
 import TaskForm from "../components/TaskForm";
 import TaskTable from "../components/TaskTable";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL;
-
-if (!API_URL) {
-  console.error("API URL is not defined. Please check your .env file.");
-}
 
 
 export default function Home() {
@@ -17,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/v1/getTasks`);
+        const response = await axios.get(`https://thumsbtack-12.onrender.com/api/v1/getTasks`);
         setTasks(response.data);
       } catch (error) {
         console.error("Error fetching tasks:", error.message);
@@ -31,7 +26,7 @@ export default function Home() {
   const handleAddTask = async (task) => {
     try {
       const response = await axios.post(
-        `${API_URL}/api/v1/createTask`,
+        `https://thumsbtack-12.onrender.com/api/v1/createTask`,
         task
       );
       setTasks((prevTasks) => [...prevTasks, response.data]); // Append new task to state
@@ -45,7 +40,7 @@ export default function Home() {
 const handleEditTask = async (task) => {
     try {
       const response = await axios.put(
-        `${API_URL}/api/v1/updateTask/${task._id}`, // Use task._id
+        `https://thumsbtack-12.onrender.com/api/v1/updateTask/${task._id}`, // Use task._id
         task // Pass the updated task data
       );
       setTasks((prevTasks) =>
@@ -66,7 +61,7 @@ const handleEditTask = async (task) => {
     try {
         console.log("idid",id);
         
-      await axios.delete(`${API_URL}/api/v1/deleteTask/${id}`);
+      await axios.delete(`https://thumsbtack-12.onrender.com/api/v1/deleteTask/${id}`);
       setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id)); // Remove task from state
     } catch (error) {
       console.error("Error deleting task:", error.response?.data?.message || error.message);
